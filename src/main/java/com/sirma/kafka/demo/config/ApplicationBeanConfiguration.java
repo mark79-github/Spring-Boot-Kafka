@@ -15,15 +15,6 @@ public class ApplicationBeanConfiguration {
     return new ValidationUtilImpl();
   }
 
-  //      @Bean
-  //      public Gson gson() {
-  //          return new GsonBuilder()
-  //                  .excludeFieldsWithoutExposeAnnotation()
-  //                  .setPrettyPrinting()
-  //                  .serializeNulls()
-  //                  .create();
-  //      }
-
   @Bean
   public ObjectMapper objectMapper() {
     ObjectMapper objectMapper = new ObjectMapper();

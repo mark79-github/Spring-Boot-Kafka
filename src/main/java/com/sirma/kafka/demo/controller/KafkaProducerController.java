@@ -1,6 +1,5 @@
 package com.sirma.kafka.demo.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sirma.kafka.demo.service.KafKaProducerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,18 +17,15 @@ public class KafkaProducerController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(KafkaProducerController.class);
   private final KafKaProducerService producerService;
-  private final ObjectMapper objectMapper;
 
   @Autowired
-  public KafkaProducerController(KafKaProducerService producerService, ObjectMapper objectMapper) {
+  public KafkaProducerController(KafKaProducerService producerService) {
     this.producerService = producerService;
-    this.objectMapper = objectMapper;
   }
 
   @PostMapping(value = "/publish")
   public ResponseEntity<Object> sendMessageToKafkaTopic(@RequestBody String message) {
     try {
-//      String message = objectMapper.writeValueAsString(kafkaMessage);
       this.producerService.sendMessage(message);
       return new ResponseEntity<>(message, HttpStatus.OK);
     } catch (Exception e) {

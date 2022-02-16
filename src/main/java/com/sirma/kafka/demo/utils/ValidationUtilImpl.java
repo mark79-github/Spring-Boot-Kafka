@@ -10,19 +10,19 @@ import java.util.Set;
 @Component
 public class ValidationUtilImpl implements ValidationUtil {
 
-  private Validator validator;
+  private final Validator validator;
 
   public ValidationUtilImpl() {
     this.validator = Validation.buildDefaultValidatorFactory().getValidator();
   }
 
   @Override
-  public <T> boolean isValid(T entity) {
-    return this.validator.validate(entity).isEmpty();
+  public <T> boolean isValid(T object) {
+    return this.validator.validate(object).isEmpty();
   }
 
   @Override
-  public <T> Set<ConstraintViolation<T>> getViolations(T entity) {
-    return this.validator.validate(entity);
+  public <T> Set<ConstraintViolation<T>> getViolations(T object) {
+    return this.validator.validate(object);
   }
 }

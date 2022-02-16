@@ -33,6 +33,7 @@ public class KafKaConsumerService {
 
     try {
       KafkaMessage kafkaMessage = objectMapper.readValue(message, KafkaMessage.class);
+
       if (this.validationUtil.isValid(kafkaMessage)) {
         LOGGER.info("Kafka message: {}", kafkaMessage);
       } else {
@@ -42,7 +43,7 @@ public class KafKaConsumerService {
       }
 
     } catch (JsonProcessingException e) {
-      LOGGER.error(e.getOriginalMessage());
+      LOGGER.error(e.getMessage());
     }
   }
 }

@@ -1,56 +1,69 @@
 package com.sirma.kafka.demo.model;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.sirma.kafka.demo.common.AppConstants;
+import com.sirma.kafka.demo.common.ErrorMessages;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class KafkaMessage {
-  @Expose
-  @NotEmpty(message = "TenantId must not be empty")
+
+  @JsonProperty
+  @NotNull(message = ErrorMessages.DATA_IS_REQUIRED)
+  private JsonNode data;
+
+  @JsonProperty
+  @NotEmpty(message = ErrorMessages.EVENT_IS_REQUIRED)
+  private String event;
+
+  @JsonProperty
+  @NotEmpty(message = ErrorMessages.TENANT_ID_IS_REQUIRED)
   private String tenantId;
 
-  @Expose
-  @Length(min = 5, message = "Tenant URL  is 5")
+  @JsonProperty
+  @URL(message = ErrorMessages.TENANT_URL_IS_NOT_VALID)
+  @NotEmpty(message = ErrorMessages.TENANT_URL_IS_REQUIRED)
   private String tenantUrl;
 
-  @Expose
-  @NotNull(message = "User must not be null")
-  private User user;
+  @JsonProperty
+  @Length(
+      min = AppConstants.DISPLAY_NAME_MIN_LENGTH,
+      max = AppConstants.DISPLAY_NAME_MAX_LENGTH,
+      message = ErrorMessages.DISPLAY_NAME_LENGTH_IS_NOT_VALID)
+  @NotEmpty(message = ErrorMessages.DISPLAY_NAME_IS_REQUIRED)
+  private String displayName;
+
+  @JsonProperty
+  @NotEmpty(message = ErrorMessages.EMAILS_ARE_REQUIRED)
+  private List<@Email(message = ErrorMessages.EMAIL_IS_NOT_VALID) String> emails;
 
   private KafkaMessage() {}
 
-  public String getTenantId() {
-    return tenantId;
-  }
-
-  public void setTenantId(String tenantId) {
-    this.tenantId = tenantId;
-  }
-
-  public String getTenantUrl() {
-    return tenantUrl;
-  }
-
-  public void setTenantUrl(String tenantUrl) {
-    this.tenantUrl = tenantUrl;
-  }
-
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
-
   @Override
   public String toString() {
-    return "KafkaMessage{" +
-            "tenantId='" + tenantId + '\'' +
-            ", tenantUrl='" + tenantUrl + '\'' +
-            ", user=" + user +
-            '}';
+    return "KafkaMessage{"
+        + "data="
+        + data
+        + ", event='"
+        + event
+        + '\''
+        + ", tenantId='"
+        + tenantId
+        + '\''
+        + ", tenantUrl='"
+        + tenantUrl
+        + '\''
+        + ", displayName='"
+        + displayName
+        + '\''
+        + ", emails="
+        + emails
+        + '}';
   }
 }
