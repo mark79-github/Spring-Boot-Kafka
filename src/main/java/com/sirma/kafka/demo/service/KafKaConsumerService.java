@@ -31,12 +31,11 @@ public class KafKaConsumerService {
   public void consume(@Payload String message) {
     LOGGER.info("Message received -> {}", message);
 
+    KafkaMessage kafkaMessage;
     try {
-      KafkaMessage kafkaMessage = objectMapper.readValue(message, KafkaMessage.class);
+      kafkaMessage = objectMapper.readValue(message, KafkaMessage.class);
 
-      if (this.validationUtil.isValid(kafkaMessage)) {
-        LOGGER.info("Kafka message: {}", kafkaMessage);
-      } else {
+      if (!this.validationUtil.isValid(kafkaMessage)) {
         this.validationUtil.getViolations(kafkaMessage).stream()
             .map(ConstraintViolation::getMessage)
             .forEach(LOGGER::error);
@@ -44,6 +43,8 @@ public class KafKaConsumerService {
 
     } catch (JsonProcessingException e) {
       LOGGER.error(e.getMessage());
+      throw new IllegalArgumentException("Exception");
     }
+
   }
 }

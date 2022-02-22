@@ -11,12 +11,13 @@ public class ErrorMessages {
 
   public static final String TENANT_URL_IS_NOT_VALID = "TenantUrl must be valid url";
   public static final String EMAIL_IS_NOT_VALID = "Email format is not valid";
-  public static final String DISPLAY_NAME_LENGTH_IS_NOT_VALID =
-      "Display name must be between "
-          + AppConstants.DISPLAY_NAME_MIN_LENGTH
-          + " and "
+  public static final String DISPLAY_NAME_MIN_LENGTH_IS_NOT_VALID =
+      "Display name must be at least " + AppConstants.DISPLAY_NAME_MIN_LENGTH + " characters long.";
+
+  public static final String DISPLAY_NAME_MAX_LENGTH_IS_NOT_VALID =
+      "Display name must be a maximum of "
           + AppConstants.DISPLAY_NAME_MAX_LENGTH
-          + " characters";
+          + " characters long.";
 
   private ErrorMessages() {}
 }
