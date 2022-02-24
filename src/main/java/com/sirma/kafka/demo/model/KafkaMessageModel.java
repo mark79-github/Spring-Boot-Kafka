@@ -18,6 +18,7 @@ import org.hibernate.validator.constraints.URL;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 /**
  * This class represents the structure of the message, received by Task Center through Kafka
@@ -53,7 +54,7 @@ public class KafkaMessageModel {
     private String processorDisplayName;
 
     @NotEmpty(message = KafkaErrorMessages.RECIPIENTS_EMAIL_ARE_REQUIRED)
-    private RecipientsEmail recipientsEmail;
+    private List<RecipientModel> recipientsEmail;
 
     @JsonCreator KafkaMessageModel(
             @JsonProperty(value = KafkaMessageJsonFieldConstants.TASK, required = true, access = JsonProperty.Access.READ_WRITE)
@@ -71,7 +72,7 @@ public class KafkaMessageModel {
             @JsonProperty(value = KafkaMessageJsonFieldConstants.PROCESSOR_DISPLAY_NAME, access = JsonProperty.Access.READ_WRITE)
                     String processorDisplayName,
             @JsonProperty(value = KafkaMessageJsonFieldConstants.RECIPIENTS_EMAIL, required = true, access = JsonProperty.Access.READ_WRITE)
-                    RecipientsEmail recipientsEmail
+                    List<RecipientModel> recipientsEmail
     ) {
         this.task = task;
         this.eventType = eventType;
@@ -143,11 +144,11 @@ public class KafkaMessageModel {
         this.taskModelType = taskModelType;
     }
 
-    public RecipientsEmail getRecipientsEmail() {
+    public List<RecipientModel> getRecipientsEmail() {
         return recipientsEmail;
     }
 
-    public void setRecipientsEmail(RecipientsEmail recipientsEmail) {
+    public void setRecipientsEmail(List<RecipientModel> recipientsEmail) {
         this.recipientsEmail = recipientsEmail;
     }
 

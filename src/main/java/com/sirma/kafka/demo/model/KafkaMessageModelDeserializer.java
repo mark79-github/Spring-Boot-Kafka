@@ -37,12 +37,12 @@ public class KafkaMessageModelDeserializer extends StdDeserializer<KafkaMessageM
         String tenantUrl = getJsonStringValue(node, KafkaMessageJsonFieldConstants.TENANT_URL);
         String processorDisplayName = getJsonStringValue(node, KafkaMessageJsonFieldConstants.PROCESSOR_DISPLAY_NAME);
         String processorEmail = getJsonStringValue(node, KafkaMessageJsonFieldConstants.PROCESSOR_EMAIL);
-        RecipientsEmail recipients = getJsonRecipientsEmail(node, KafkaMessageJsonFieldConstants.RECIPIENTS_EMAIL);
+        ArrayList<RecipientModel> recipientsEmail = getJsonRecipientsEmail(node, KafkaMessageJsonFieldConstants.RECIPIENTS_EMAIL);
 
-        return new KafkaMessageModel(task, eventType, taskModelType, tenantId, tenantUrl, processorEmail, processorDisplayName, recipients);
+        return new KafkaMessageModel(task, eventType, taskModelType, tenantId, tenantUrl, processorEmail, processorDisplayName, recipientsEmail);
     }
 
-    private RecipientsEmail getJsonRecipientsEmail(JsonNode node, String field) {
+    private ArrayList<RecipientModel> getJsonRecipientsEmail(JsonNode node, String field) {
         JsonNode arrayNode = node.get(field);
 
         ArrayList<RecipientModel> recipientModels = new ArrayList<>();
@@ -54,7 +54,7 @@ public class KafkaMessageModelDeserializer extends StdDeserializer<KafkaMessageM
                 recipientModels.add(recipientModel);
             }
         }
-        return new RecipientsEmail(recipientModels);
+        return recipientModels;
     }
 
     private String getStringValueFromJsonNode(JsonNode jsonNode, String field) {
