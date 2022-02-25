@@ -6,10 +6,12 @@ import com.sirma.kafka.demo.common.AppConstants;
 import com.sirma.kafka.demo.common.KafkaErrorMessages;
 import com.sirma.kafka.demo.common.KafkaMessageJsonFieldConstants;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class RecipientModel {
 
+  @NotNull(message = KafkaErrorMessages.DISPLAY_NAME_IS_REQUIRED)
   private String displayName;
 
   @Pattern(regexp = AppConstants.EMAIL_REGEX, message = KafkaErrorMessages.EMAIL_IS_NOT_VALID)
@@ -19,6 +21,7 @@ public class RecipientModel {
   public RecipientModel(
       @JsonProperty(
               value = KafkaMessageJsonFieldConstants.DISPLAY_NAME,
+              required = true,
               access = JsonProperty.Access.READ_WRITE)
           String displayName,
       @JsonProperty(

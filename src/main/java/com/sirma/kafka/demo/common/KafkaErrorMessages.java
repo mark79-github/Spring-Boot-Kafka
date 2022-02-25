@@ -7,7 +7,9 @@ public class KafkaErrorMessages {
     public static final String TASK_MODEL_TYPE_IS_REQUIRED = "TaskModelType is required";
     public static final String TENANT_ID_IS_REQUIRED = "TenantId is required";
     public static final String TENANT_URL_IS_REQUIRED = "TenantUrl is required";
-    public static final String PROCESSOR_DISPLAY_NAME_IS_REQUIRED = "DisplayName is required";
+  public static final String PROCESSOR_DISPLAY_NAME_IS_REQUIRED =
+      "ProcessorDisplayName is required";
+  public static final String DISPLAY_NAME_IS_REQUIRED = "DisplayName is required";
     public static final String RECIPIENTS_EMAIL_ARE_REQUIRED = "RecipientsEmail is required";
     public static final String PROCESSOR_EMAIL_IS_REQUIRED = "ProcessorEmail is required";
 
