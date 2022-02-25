@@ -3,7 +3,7 @@ package com.sirma.kafka.demo.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sirma.kafka.demo.common.AppConstants;
-import com.sirma.kafka.demo.model.KafkaMessage;
+import com.sirma.kafka.demo.model.KafkaMessageModel;
 import com.sirma.kafka.demo.utils.ValidationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,12 +31,12 @@ public class KafKaConsumerService {
   public void consume(@Payload String message) {
     LOGGER.info("Message received -> {}", message);
 
-    KafkaMessage kafkaMessage;
+    KafkaMessageModel kafkaMessageModel;
     try {
-      kafkaMessage = objectMapper.readValue(message, KafkaMessage.class);
+      kafkaMessageModel = objectMapper.readValue(message, KafkaMessageModel.class);
 
-      if (!this.validationUtil.isValid(kafkaMessage)) {
-        this.validationUtil.getViolations(kafkaMessage).stream()
+      if (!this.validationUtil.isValid(kafkaMessageModel)) {
+        this.validationUtil.getViolations(kafkaMessageModel).stream()
             .map(ConstraintViolation::getMessage)
             .forEach(LOGGER::error);
       }

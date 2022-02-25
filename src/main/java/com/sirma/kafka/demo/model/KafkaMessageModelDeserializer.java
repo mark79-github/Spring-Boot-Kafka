@@ -48,8 +48,9 @@ public class KafkaMessageModelDeserializer extends StdDeserializer<KafkaMessageM
         ArrayList<RecipientModel> recipientModels = new ArrayList<>();
         if (arrayNode != null && arrayNode.isArray()) {
             for (JsonNode jsonNode : arrayNode) {
-                String displayName = getStringValueFromJsonNode(jsonNode, KafkaMessageJsonFieldConstants.DISPLAY_NAME);
-                String email = getStringValueFromJsonNode(jsonNode, KafkaMessageJsonFieldConstants.EMAIL);
+        String displayName =
+            getJsonStringValue(jsonNode, KafkaMessageJsonFieldConstants.DISPLAY_NAME);
+        String email = getJsonStringValue(jsonNode, KafkaMessageJsonFieldConstants.EMAIL);
                 RecipientModel recipientModel = new RecipientModel(displayName, email);
                 recipientModels.add(recipientModel);
             }
@@ -57,14 +58,9 @@ public class KafkaMessageModelDeserializer extends StdDeserializer<KafkaMessageM
         return recipientModels;
     }
 
-    private String getStringValueFromJsonNode(JsonNode jsonNode, String field) {
-        JsonNode node = jsonNode.get(field);
-        return node != null && node.isTextual() ? node.asText() : "";
-    }
-
     private String getJsonStringValue(JsonNode node, String field) {
         JsonNode jsonNode = node.get(field);
-        return jsonNode != null && jsonNode.isTextual() ? jsonNode.asText() : null;
+    return jsonNode != null && jsonNode.isTextual() ? jsonNode.asText() : "";
     }
 
     private TaskModelType getJsonTaskModelType(JsonParser jsonParser, JsonNode node, String field) throws JsonMappingException {

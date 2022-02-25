@@ -15,6 +15,7 @@ public class KafkaErrorMessages {
     public static final String TASK_MODEL_TYPE_INVALID_DATA = "Invalid value for enum type TaskModelType";
     public static final String TENANT_URL_IS_NOT_VALID = "TenantUrl must be valid url";
     public static final String EMAIL_IS_NOT_VALID = "Email format is not valid";
+  public static final String TENANT_ID_IS_NOT_VALID = "TenantId is not valid";
     public static final String PROCESSOR_DISPLAY_NAME_MIN_LENGTH_IS_NOT_VALID =
             "Display name must be at least " + AppConstants.DISPLAY_NAME_MIN_LENGTH + " characters long.";
     public static final String PROCESSOR_DISPLAY_NAME_MAX_LENGTH_IS_NOT_VALID =
