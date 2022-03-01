@@ -5,17 +5,19 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Locale;
 
-@RestController(value = "/locale")
-public class Localization {
+@RestController
+@RequestMapping(value = "locale")
+public class LocalizationController {
 
     private final MessageSource messageSource;
 
     @Autowired
-    public Localization(MessageSource messageSource) {
+    public LocalizationController(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
 
